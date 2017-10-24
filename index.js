@@ -3,7 +3,7 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 
-// create LINE SDK config from env variables
+// create LINE SDK conf ig from env variables
 const config = {
   channelAccessToken: 'rqGxbcMnaBA0q1qukvP5d8uIhberyvEQch+aJFJYSDt4qh6JhNmoXTB4SoSC62zYpAYCm9f/eRSOaRAK8Ht+OVsyX8bPXZn70IXB3ZROCP9cnnUbJHIzCVWe94GKgU+V6XOocahem92oS2UbwRB//wdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'd23d58f058dcae4fe4e383732e23bc1d',
