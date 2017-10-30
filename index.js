@@ -31,16 +31,16 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  switch(message.toLowerCase()) {
-    case 'boss':
-      return client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode' });
-      break;
-    case 'noboss':
-      return client.replyMessage(event.replyToken, { type: 'text', text: 'no boss mode' });
-      break;
-    default:
-      return;
-  }
+  // switch(message.toLowerCase()) {
+  //   case 'boss':
+  //     return client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode' });
+  //     break;
+  //   case 'noboss':
+  //     return client.replyMessage(event.replyToken, { type: 'text', text: 'no boss mode' });
+  //     break;
+  //   default:
+  //     return;
+  // }
 
   // create a echoing text message
   const echo = { type: 'text', text: 'paandah' };
