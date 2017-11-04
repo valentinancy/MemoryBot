@@ -66,6 +66,7 @@ function handleEvent(event) {
   }
 
   function responseSave(message) {
+    getMode();
     if(bossMode=='false') {
       const key = message[1];
       const data = message[2];
@@ -86,6 +87,7 @@ function handleEvent(event) {
   }
 
   function responseLoad(message) {
+    getMode();
     console.log(bossMode)
     if(bossMode=='false') {
       const messageKey = message[1];
