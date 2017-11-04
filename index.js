@@ -60,8 +60,10 @@ function handleEvent(event) {
 
   var message = event.message.text.toLowerCase().split(" ");
   const command = message[0]
+  console.log("command: ",command)
   switch(command) {
     case 'boss':
+      console.log("masuk ke bos")
       responseBossMode();
     case 'noboss':
       responseNoBossMode();
