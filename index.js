@@ -90,7 +90,7 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      for (var key in validation_messages) {
+      for (var key in snapshot) {
         // skip loop if the property is from prototype
         if (!snapshot.hasOwnProperty(key)) continue;
     
