@@ -36,29 +36,6 @@ app.post('/webhook', line.middleware(config), (req, res) => {
     .then((result) => res.json(result));
 });
 
-app.post('/webhook/', line.validator.validateSignature(), (req, res, next) => {
-  // get content from request body
-  const promises = req.body.events.map(event => {
-    // reply message
-    return line.client
-      .replyMessage({
-        replyToken: event.replyToken,
-        messages: [
-          {
-            type: 'text',
-            text: event.message.text
-          }
-        ]
-      })
-  })
-  Promise
-    .all(promises)
-    .then(() => res.json({success: true}))
-})
-
-
-
-
 // event handler
 function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -99,7 +76,9 @@ function handleEvent(event) {
   }
 
   function responseProfile() {
-
+    event.source.profile().then(function (profile) {
+      client.replyMessage(event.replyToken, { type: 'text', text: profile.userId });
+    });
   }
 
   var message = event.message.text.toLowerCase().split(" ");
