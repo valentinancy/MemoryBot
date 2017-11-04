@@ -44,7 +44,8 @@ function handleEvent(event) {
   }
   
   var bossMode = false;
-  const userId = event.source.userId
+  const userId = event.source.userId;
+  const ref = firebase.database().ref("users").child(userId);
 
   function responseBossMode() {
     bossMode = true;
@@ -66,10 +67,9 @@ function handleEvent(event) {
 
   function responseSave(message) {
     if(!bossMode) {
-      const key = message[1]
-      const data = message[2]
+      const key = message[1];
+      const data = message[2];
 
-      const ref = firebase.database().ref("users").child(userId);
       ref.push({
         key: key,
         data: data
@@ -79,14 +79,25 @@ function handleEvent(event) {
   }
 
   function responseProfile() {
-      client.getProfile(userId).then(function(profile){
-        const text = "Halo " + profile.displayName + ", ini user ID kamu + " + profile.userId;
-        client.replyMessage(event.replyToken, { type: 'text', text });
-      })
+    client.getProfile(userId).then(function(profile){
+      const text = "Halo " + profile.displayName + ", ini user ID kamu + " + profile.userId;
+      client.replyMessage(event.replyToken, { type: 'text', text });
+    })
   }
 
-  var message = event.message.text.toLowerCase().split(" ");
-  const command = message[0]
+  function responseLoad(message) {
+    const key = message[1];
+    
+    ref.on("value", function(snapshot) {
+      console.log(snapshot.val());
+      client.replyMessage(event.replyToken, { type: 'text', text: snapshot.val() });
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  }
+
+  var message = event.message.text.split(" ");
+  const command = message[0].toLowerCase();
   console.log("command: ",command)
   switch(command) {
     case 'boss':
@@ -98,7 +109,9 @@ function handleEvent(event) {
     case 'save':
       return responseSave(message);
     case 'profile':
-      return responseProfile(message);
+      return responseProfile();
+    case 'load':
+      return responseLoad(message);
     default:
       return;
   }
