@@ -95,10 +95,10 @@ function handleEvent(event) {
         return [Number(key), obj[key]];
       });
       objects.forEach(function(object){
-        console.log("key", object.key)
-        if(object.key==messageKey) {
-          console.log(object.data);
-          client.replyMessage(event.replyToken, { type: 'text', text: object.data });
+        console.log("key", object[1].key)
+        if(object[1].key==messageKey) {
+          console.log(object[1].data);
+          client.replyMessage(event.replyToken, { type: 'text', text: object[1].data });
         }
       })
       
