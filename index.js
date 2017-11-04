@@ -90,7 +90,11 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      client.replyMessage(event.replyToken, { type: 'text', text: snapshot.val() });
+      for(var snap in snapshot) {
+        if(snap.key==key) {
+          client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
+        }
+      }
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
