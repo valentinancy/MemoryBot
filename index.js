@@ -36,14 +36,36 @@ app.post('/webhook', line.middleware(config), (req, res) => {
     .then((result) => res.json(result));
 });
 
-// event handler
+app.post('/webhook/', line.validator.validateSignature(), (req, res, next) => {
+  // get content from request body
+  const promises = req.body.events.map(event => {
+    // reply message
+    return line.client
+      .replyMessage({
+        replyToken: event.replyToken,
+        messages: [
+          {
+            type: 'text',
+            text: event.message.text
+          }
+        ]
+      })
+  })
+  Promise
+    .all(promises)
+    .then(() => res.json({success: true}))
+})
 
+
+
+
+// event handler
 function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
-
+  
   var bossMode = false;
 
   function responseBossMode() {
@@ -61,13 +83,6 @@ function handleEvent(event) {
 
   function responseNoBossMode() {
     bossMode = false;
-    const ref = firebase.database().ref("server/saving-data/fireblog").child("users");
-    ref.set({
-      alanisawesome: {
-        date_of_birth: "June 23, 1912",
-        full_name: "Alan Turing"
-      }
-    })
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
@@ -75,8 +90,16 @@ function handleEvent(event) {
     if(!bossMode) {
       const key = message[1]
       const data = message[2]
+      const ref = firebase.database().ref("data").child("users");
+      ref.set({
+        key: data
+      })
       client.replyMessage(event.replyToken, { type: 'text', text: key });
     }
+  }
+
+  function responseProfile() {
+
   }
 
   var message = event.message.text.toLowerCase().split(" ");
@@ -91,6 +114,8 @@ function handleEvent(event) {
       return responseNoBossMode();
     case 'save':
       return responseSave(message);
+    case 'profile':
+      return responseProfile(message);
     default:
       return;
   }
