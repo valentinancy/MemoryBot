@@ -50,6 +50,14 @@ function handleEvent(event) {
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
+  function responseSave(message) {
+    if(!bossMode) {
+      const key = message[1]
+      const data = message[2]
+      client.replyMessage(event.replyToken, { type: 'text', text: key });
+    }
+  }
+
   var message = event.message.text.toLowerCase().split(" ");
   const command = message[0]
   switch(command) {
@@ -57,6 +65,8 @@ function handleEvent(event) {
       responseBossMode();
     case 'noboss':
       responseNoBossMode();
+    case 'save':
+      responseSave(message);
     default:
       return;
   }
