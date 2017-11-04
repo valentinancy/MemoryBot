@@ -90,10 +90,11 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      Object.keys(snapshot).map(function(key, index) {
-        var value = snapshot[index].data;
-        console.log(value);
+      var obj = snapshot.val();
+      var result = Object.keys(obj).map(function(key) {
+        return [Number(key), obj[key]];
       });
+      console.log(result)
           // client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
       
     }, function (errorObject) {
