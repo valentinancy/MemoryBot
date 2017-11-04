@@ -35,10 +35,10 @@ function handleEvent(event) {
 
   switch(event.message.text.toLowerCase()) {
     case 'boss':
-      return client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode' });
+      return client.replyMessage(event.replyToken, bossText);
       break;
     case 'noboss':
-      return client.replyMessage(event.replyToken, { type: 'text', text: 'no boss mode' });
+      return client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
       break;
     default:
       return;
