@@ -90,19 +90,10 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      for (var key in snapshot) {
-        // skip loop if the property is from prototype
-        if (!snapshot.hasOwnProperty(key)) continue;
-    
-        var obj = snapshot[key];
-        for (var prop in obj) {
-            // skip loop if the property is from prototype
-            if(!obj.hasOwnProperty(prop)) continue;
-    
-            // your code
-            console.log(obj[prop]);
-        }
-      }
+      Object.keys(snapshot).map(function(objectKey, index) {
+        var value = object[objectKey];
+        console.log(value);
+      });
           client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
       
     }, function (errorObject) {
