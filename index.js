@@ -91,7 +91,7 @@ function handleEvent(event) {
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
       Object.keys(snapshot).map(function(objectKey, index) {
-        var value = object[objectKey];
+        var value = snapshot[objectKey];
         console.log(value);
       });
           client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
