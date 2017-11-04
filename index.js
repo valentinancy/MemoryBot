@@ -66,7 +66,7 @@ function handleEvent(event) {
   }
 
   function responseSave(message) {
-    if(!bossMode) {
+    if(bossMode==false) {
       const key = message[1];
       const data = message[2];
 
@@ -86,7 +86,7 @@ function handleEvent(event) {
   }
 
   function responseLoad(message) {
-    if(!bossMode) {
+    if(bossMode==false) {
       const messageKey = message[1];
       
       ref.on("value", function(snapshot) {
