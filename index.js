@@ -94,7 +94,7 @@ function handleEvent(event) {
       var result = Object.keys(obj).map(function(key) {
         return [Number(key), obj[key]];
       });
-      console.log(result)
+      console.log(result[0].data)
           // client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
       
     }, function (errorObject) {
