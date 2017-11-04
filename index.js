@@ -44,6 +44,7 @@ function handleEvent(event) {
   }
   
   var bossMode = false;
+  const userId = event.source.userId
 
   function responseBossMode() {
     bossMode = true;
@@ -67,16 +68,20 @@ function handleEvent(event) {
     if(!bossMode) {
       const key = message[1]
       const data = message[2]
-      const ref = firebase.database().ref("data").child("users");
+
+      const ref = firebase.database().ref("users").child(userId);
       ref.set({
         key: data
       })
-      client.replyMessage(event.replyToken, { type: 'text', text: key });
+      client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
     }
   }
 
   function responseProfile() {
-      client.replyMessage(event.replyToken, { type: 'text', text: event.source.userId });
+      client.getProfile(userId).then(function(profile){
+        const text = "Halo " + profile.displayName + " ini user ID kamu + " + profile.userId;
+        client.replyMessage(event.replyToken, { type: 'text', text });
+      })
   }
 
   var message = event.message.text.toLowerCase().split(" ");
