@@ -31,6 +31,8 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
+  const bossText = {type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. Pasalnya, mereka dapat info dari Badan Pelestarian Cagar Budaya (BPCB) DIY tentang rencana penggunaan area situs itu untuk sesi pemotretan pre-wedding anak Presiden Jokowi, Kahiyang Ayu (26), dan calon suaminya, Bobby Afif Nasution (26). Informasi tersebut datang tiba-tiba, plus tanpa keterangan waktu. "Pokoknya, kita diminta siap-siap pada Senin dan Selasa (11-12 September 2017)," kata petugas jaga--menolak namanya dipublikasikan--kepada Beritagar.id, di Situs Warungboto, Selasa (24/10/2017). Mereka pun bergegas bersih-bersih wilayah situs. Satu kamar mandi milik warga juga dipersiapkan untuk keperluan rombongan Kahiyang dan Bobby.'}
+
   switch(event.message.text.toLowerCase()) {
     case 'boss':
       return client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode' });
@@ -40,7 +42,7 @@ function handleEvent(event) {
       break;
     default:
       return;
-  }l
+  }
 
   // create a echoing text message
   // const echo = { type: 'text', text: 'paandah' };
