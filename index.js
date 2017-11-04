@@ -64,12 +64,12 @@ function handleEvent(event) {
   switch(command) {
     case 'boss':
       console.log("masuk ke boss")
-      responseBossMode();
+      return responseBossMode();
     case 'noboss':
       console.log("tapi masuk no boss")
-      responseNoBossMode();
+      return responseNoBossMode();
     case 'save':
-      responseSave(message);
+      return responseSave(message);
     default:
       return;
   }
