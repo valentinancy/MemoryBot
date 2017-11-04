@@ -31,7 +31,7 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  var bossMode = false;
+  var bossMode;
 
   function responseBossMode() {
     this.bossMode = true;
