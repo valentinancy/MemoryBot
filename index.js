@@ -86,18 +86,22 @@ function handleEvent(event) {
   }
 
   function responseLoad(message) {
-    const key = message[1];
+    const messageKey = message[1];
     
     ref.on("value", function(snapshot) {
-      console.log(snapshot.val());
       var obj = snapshot.val();
-      var result = Object.keys(obj).map(function(key) {
+      var objects = Object.keys(obj).map(function(key) {
         return [Number(key), obj[key]];
       });
+      objects.forEach(function(object){
+        if(object.key==messageKey) {
+          console.log(object.data);
+          client.replyMessage(event.replyToken, { type: 'text', text: object.data });
+        }
+      })
       var res = result[0];
-      console.log(res[1].data)
-          // client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
       
+          
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
