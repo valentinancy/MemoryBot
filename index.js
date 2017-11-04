@@ -46,12 +46,13 @@ function handleEvent(event) {
     // client.replyMessage(event.replyToken, bossText);
   // }
 
-  function bossMode() {
+
+  function noBossMode() {
     bossMode = false;
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
-  function noBossMode() {
+  function bossMode() {
     bossMode = false;
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
