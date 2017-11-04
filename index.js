@@ -34,7 +34,7 @@ function handleEvent(event) {
   var bossMode;
 
   function responseBossMode() {
-    this.bossMode = true;
+    bossMode = true;
     const bossText = [
       { type: 'text', text: bossMode },
       { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
@@ -47,15 +47,15 @@ function handleEvent(event) {
 
 
   function responseNoBossMode() {
-    this.bossMode = false;
+    bossMode = false;
     client.replyMessage(event.replyToken, { type: 'text', text: bossMode });
   }
 
   function responseSave(message) {
-    if(!this.bossMode) {
+    if(!bossMode) {
       const key = message[1]
       const data = message[2]
-      client.replyMessage(event.replyToken, { type: 'text', text: this.bossMode });
+      client.replyMessage(event.replyToken, { type: 'text', text: bossMode });
     }
   }
 
