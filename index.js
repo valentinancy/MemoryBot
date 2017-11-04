@@ -76,9 +76,7 @@ function handleEvent(event) {
   }
 
   function responseProfile() {
-    event.source.profile().then(function (profile) {
-      client.replyMessage(event.replyToken, { type: 'text', text: profile.userId });
-    });
+      client.replyMessage(event.replyToken, { type: 'text', text: event.source.userId });
   }
 
   var message = event.message.text.toLowerCase().split(" ");
