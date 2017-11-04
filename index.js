@@ -31,7 +31,7 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  switch(message.toLowerCase()) {
+  switch(event.message.text.toLowerCase()) {
     case 'boss':
       return client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode' });
       break;
@@ -40,7 +40,7 @@ function handleEvent(event) {
       break;
     default:
       return;
-  }
+  }l
 
   // create a echoing text message
   // const echo = { type: 'text', text: 'paandah' };
