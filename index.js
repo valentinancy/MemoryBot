@@ -37,9 +37,9 @@ function handleEvent(event) {
   const bossText4 = {type: 'text', text: 'Mereka pun bergegas bersih-bersih wilayah situs. Satu kamar mandi milik warga juga dipersiapkan untuk keperluan rombongan Kahiyang dan Bobby.'}
 
   function replyForBossMode() {
-    client.replyMessage(event.replyToken, bossText1);
-    client.replyMessage(event.replyToken, bossText2);
-    client.replyMessage(event.replyToken, bossText3);
+    client.replyMessage(event.replyToken, bossText1),
+    client.replyMessage(event.replyToken, bossText2),
+    client.replyMessage(event.replyToken, bossText3),
     client.replyMessage(event.replyToken, bossText4);
   }
 
