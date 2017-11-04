@@ -87,6 +87,7 @@ function handleEvent(event) {
 
   function responseLoad(message) {
     const messageKey = message[1];
+    console.log("message key ", messageKey)
     
     ref.on("value", function(snapshot) {
       var obj = snapshot.val();
@@ -94,6 +95,7 @@ function handleEvent(event) {
         return [Number(key), obj[key]];
       });
       objects.forEach(function(object){
+        console.log("key", object.key)
         if(object.key==messageKey) {
           console.log(object.data);
           client.replyMessage(event.replyToken, { type: 'text', text: object.data });
