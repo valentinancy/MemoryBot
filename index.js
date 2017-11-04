@@ -63,9 +63,10 @@ function handleEvent(event) {
   console.log("command: ",command)
   switch(command) {
     case 'boss':
-      console.log("masuk ke bos")
+      console.log("masuk ke boss")
       responseBossMode();
     case 'noboss':
+      console.log("tapi masuk no boss")
       responseNoBossMode();
     case 'save':
       responseSave(message);
