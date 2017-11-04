@@ -33,8 +33,8 @@ function handleEvent(event) {
 
   var bossMode = false;
 
-  function bossMode() {
-    client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode tjui' });
+  // function bossMode() {
+  //   client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode tjui' });
     // bossMode = true;
     // client.replyMessage(event.replyToken, { type: 'text', text: 'boss lagi tjui abis boolean' });
     // const bossText = [
@@ -44,6 +44,11 @@ function handleEvent(event) {
     //   { type: 'text', text: 'Mereka pun bergegas bersih-bersih wilayah situs. Satu kamar mandi milik warga juga dipersiapkan untuk keperluan rombongan Kahiyang dan Bobby.' }
     // ]
     // client.replyMessage(event.replyToken, bossText);
+  // }
+
+  function bossMode() {
+    bossMode = false;
+    client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
   function noBossMode() {
