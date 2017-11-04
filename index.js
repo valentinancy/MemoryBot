@@ -70,8 +70,9 @@ function handleEvent(event) {
       const data = message[2]
 
       const ref = firebase.database().ref("users").child(userId);
-      ref.set({
-        key: data
+      ref.push({
+        key: key,
+        data: data
       })
       client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
     }
@@ -79,7 +80,7 @@ function handleEvent(event) {
 
   function responseProfile() {
       client.getProfile(userId).then(function(profile){
-        const text = "Halo " + profile.displayName + " ini user ID kamu + " + profile.userId;
+        const text = "Halo " + profile.displayName + ", ini user ID kamu + " + profile.userId;
         client.replyMessage(event.replyToken, { type: 'text', text });
       })
   }
