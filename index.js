@@ -99,7 +99,6 @@ function handleEvent(event) {
           client.replyMessage(event.replyToken, { type: 'text', text: object.data });
         }
       })
-      var res = result[0];
       
           
     }, function (errorObject) {
