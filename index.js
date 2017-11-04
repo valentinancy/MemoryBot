@@ -91,6 +91,7 @@ function handleEvent(event) {
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
       for(var snap in snapshot) {
+        console.log(snap.key);
         if(snap.key==key) {
           client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
         }
