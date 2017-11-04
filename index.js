@@ -43,14 +43,14 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   
-  var bossMode = false;
   const userId = event.source.userId;
   const ref = firebase.database().ref("users").child(userId);
+  const modeRef = firebase.database().ref("mode").child(userId);
+  var bossMode;
 
   function responseBossMode() {
-    bossMode = true;
+    changeMode(true);
     const bossText = [
-      { type: 'text', text: bossMode },
       { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
       { type: 'text', text: 'Pasalnya, mereka dapat info dari Badan Pelestarian Cagar Budaya (BPCB) DIY tentang rencana penggunaan area situs itu untuk sesi pemotretan pre-wedding anak Presiden Jokowi, Kahiyang Ayu (26), dan calon suaminya, Bobby Afif Nasution (26). ' },
       { type: 'text', text: 'Informasi tersebut datang tiba-tiba, plus tanpa keterangan waktu. "Pokoknya, kita diminta siap-siap pada Senin dan Selasa (11-12 September 2017)," kata petugas jaga--menolak namanya dipublikasikan--kepada Beritagar.id, di Situs Warungboto, Selasa (24/10/2017).' },
@@ -61,7 +61,7 @@ function handleEvent(event) {
 
 
   function responseNoBossMode() {
-    bossMode = false;
+    changeMode(false);
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
@@ -86,23 +86,35 @@ function handleEvent(event) {
   }
 
   function responseLoad(message) {
-    const messageKey = message[1];
-    console.log("message key ", messageKey)
-    
-    ref.on("value", function(snapshot) {
-      var obj = snapshot.val();
-      var objects = Object.keys(obj).map(function(key) {
-        return [Number(key), obj[key]];
-      });
-      objects.forEach(function(object){
-        console.log("key", object[1].key)
-        if(object[1].key==messageKey) {
-          console.log(object[1].data);
-          client.replyMessage(event.replyToken, { type: 'text', text: object[1].data });
-        }
-      })
+    if(!bossMode) {
+      const messageKey = message[1];
       
-          
+      ref.on("value", function(snapshot) {
+        var obj = snapshot.val();
+        var objects = Object.keys(obj).map(function(key) {
+          return [Number(key), obj[key]];
+        });
+        objects.forEach(function(object){
+          if(object[1].key==messageKey) {
+            client.replyMessage(event.replyToken, { type: 'text', text: object[1].data });
+          }
+        })
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+    }
+  }
+
+  function changeMode(mode) {
+    modeRef.set({
+      boss: mode
+    })
+  }
+
+  function getMode() {
+    modeRef.on("value", function(snapshot) {
+      var obj = snapshot.val();
+      bossMode = obj.boss;
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
@@ -110,13 +122,10 @@ function handleEvent(event) {
 
   var message = event.message.text.split(" ");
   const command = message[0].toLowerCase();
-  console.log("command: ",command)
   switch(command) {
     case 'boss':
-      console.log("masuk ke boss")
       return responseBossMode();
     case 'noboss':
-      console.log("tapi masuk no boss")
       return responseNoBossMode();
     case 'save':
       return responseSave(message);
