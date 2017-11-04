@@ -2,12 +2,24 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const firebase = require("firebase/app");
+require("firebase/database");
 
 // create LINE SDK conf ig from env variables
 const config = {
   channelAccessToken: 'rqGxbcMnaBA0q1qukvP5d8uIhberyvEQch+aJFJYSDt4qh6JhNmoXTB4SoSC62zYpAYCm9f/eRSOaRAK8Ht+OVsyX8bPXZn70IXB3ZROCP9cnnUbJHIzCVWe94GKgU+V6XOocahem92oS2UbwRB//wdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'd23d58f058dcae4fe4e383732e23bc1d',
 };
+
+const config = {
+  apiKey: "AIzaSyAgH3bdr8u3oXpIa4UeZYsoYuGT9dGc_xY",
+  authDomain: "cheatingbot-992eb.firebaseapp.com",
+  databaseURL: "https://cheatingbot-992eb.firebaseio.com",
+  projectId: "cheatingbot-992eb",
+  storageBucket: "",
+  messagingSenderId: "192740474850"
+};
+firebase.initializeApp(config);
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -25,16 +37,17 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 });
 
 // event handler
+
 function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
-  this.bossMode = false;
+  var bossMode = false;
 
   function responseBossMode() {
-    this.bossMode = true;
+    bossMode = true;
     const bossText = [
       { type: 'text', text: bossMode },
       { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
@@ -47,15 +60,22 @@ function handleEvent(event) {
 
 
   function responseNoBossMode() {
-    this.bossMode = false;
-    client.replyMessage(event.replyToken, { type: 'text', text: bossMode });
+    bossMode = false;
+    const ref = firebase.database().ref("server/saving-data/fireblog").child("users");
+    ref.set({
+      alanisawesome: {
+        date_of_birth: "June 23, 1912",
+        full_name: "Alan Turing"
+      }
+    })
+    client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
   function responseSave(message) {
-    if(!this.bossMode) {
+    if(!bossMode) {
       const key = message[1]
       const data = message[2]
-      client.replyMessage(event.replyToken, { type: 'text', text: this.bossMode });
+      client.replyMessage(event.replyToken, { type: 'text', text: key });
     }
   }
 
@@ -74,12 +94,6 @@ function handleEvent(event) {
     default:
       return;
   }
-
-  // create a echoing text message
-  // const echo = { type: 'text', text: 'paandah' };
-
-  // use reply API
-  // return client.replyMessage(event.replyToken, echo);
 }
 
 // listen on port
