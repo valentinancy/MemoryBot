@@ -90,13 +90,21 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      for(var snap in snapshot) {
-
-        console.log(snap.val());
-        if(snap.key.val()==key) {
-          client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
+      for (var key in validation_messages) {
+        // skip loop if the property is from prototype
+        if (!snapshot.hasOwnProperty(key)) continue;
+    
+        var obj = snapshot[key];
+        for (var prop in obj) {
+            // skip loop if the property is from prototype
+            if(!obj.hasOwnProperty(prop)) continue;
+    
+            // your code
+            console.log(obj[prop]);
         }
       }
+          client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
+      
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
