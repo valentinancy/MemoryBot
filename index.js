@@ -90,11 +90,11 @@ function handleEvent(event) {
     
     ref.on("value", function(snapshot) {
       console.log(snapshot.val());
-      Object.keys(snapshot).map(function(objectKey, index) {
-        var value = snapshot[objectKey].key;
+      Object.keys(snapshot).map(function(key, index) {
+        var value = snapshot[key].data;
         console.log(value);
       });
-          client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
+          // client.replyMessage(event.replyToken, { type: 'text', text: snap.data.val() });
       
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
