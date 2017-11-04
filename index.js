@@ -11,7 +11,10 @@ const config = {
   channelSecret: 'd23d58f058dcae4fe4e383732e23bc1d',
 };
 
-const config = {
+// create LINE SDK client
+const client = new line.Client(config);
+
+const firebaseConfig = {
   apiKey: "AIzaSyAgH3bdr8u3oXpIa4UeZYsoYuGT9dGc_xY",
   authDomain: "cheatingbot-992eb.firebaseapp.com",
   databaseURL: "https://cheatingbot-992eb.firebaseio.com",
@@ -19,10 +22,7 @@ const config = {
   storageBucket: "",
   messagingSenderId: "192740474850"
 };
-firebase.initializeApp(config);
-
-// create LINE SDK client
-const client = new line.Client(config);
+firebase.initializeApp(firebaseConfig);
 
 // create Express app
 // about Express itself: https://expressjs.com/
