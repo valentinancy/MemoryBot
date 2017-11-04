@@ -33,26 +33,19 @@ function handleEvent(event) {
 
   var bossMode = false;
 
-  // function bossMode() {
-  //   client.replyMessage(event.replyToken, { type: 'text', text: 'boss mode tjui' });
-    // bossMode = true;
-    // client.replyMessage(event.replyToken, { type: 'text', text: 'boss lagi tjui abis boolean' });
-    // const bossText = [
-    //   { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
-    //   { type: 'text', text: 'Pasalnya, mereka dapat info dari Badan Pelestarian Cagar Budaya (BPCB) DIY tentang rencana penggunaan area situs itu untuk sesi pemotretan pre-wedding anak Presiden Jokowi, Kahiyang Ayu (26), dan calon suaminya, Bobby Afif Nasution (26). ' },
-    //   { type: 'text', text: 'Informasi tersebut datang tiba-tiba, plus tanpa keterangan waktu. "Pokoknya, kita diminta siap-siap pada Senin dan Selasa (11-12 September 2017)," kata petugas jaga--menolak namanya dipublikasikan--kepada Beritagar.id, di Situs Warungboto, Selasa (24/10/2017).' },
-    //   { type: 'text', text: 'Mereka pun bergegas bersih-bersih wilayah situs. Satu kamar mandi milik warga juga dipersiapkan untuk keperluan rombongan Kahiyang dan Bobby.' }
-    // ]
-    // client.replyMessage(event.replyToken, bossText);
-  // }
-
-
-  function noBossMode() {
-    bossMode = false;
-    client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
+  function responseBossMode() {
+    bossMode = true;
+    const bossText = [
+      { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
+      { type: 'text', text: 'Pasalnya, mereka dapat info dari Badan Pelestarian Cagar Budaya (BPCB) DIY tentang rencana penggunaan area situs itu untuk sesi pemotretan pre-wedding anak Presiden Jokowi, Kahiyang Ayu (26), dan calon suaminya, Bobby Afif Nasution (26). ' },
+      { type: 'text', text: 'Informasi tersebut datang tiba-tiba, plus tanpa keterangan waktu. "Pokoknya, kita diminta siap-siap pada Senin dan Selasa (11-12 September 2017)," kata petugas jaga--menolak namanya dipublikasikan--kepada Beritagar.id, di Situs Warungboto, Selasa (24/10/2017).' },
+      { type: 'text', text: 'Mereka pun bergegas bersih-bersih wilayah situs. Satu kamar mandi milik warga juga dipersiapkan untuk keperluan rombongan Kahiyang dan Bobby.' }
+    ]
+    client.replyMessage(event.replyToken, bossText);
   }
 
-  function bossMode() {
+
+  function responseNoBossMode() {
     bossMode = false;
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
@@ -61,9 +54,9 @@ function handleEvent(event) {
   const command = message[0]
   switch(command) {
     case 'boss':
-      bossMode();
+      responseBossMode();
     case 'noboss':
-      noBossMode();
+      responseNoBossMode();
     default:
       return;
   }
