@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 
 const line = require('@line/bot-sdk');
 const express = require('express');
