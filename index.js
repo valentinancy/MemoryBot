@@ -49,7 +49,7 @@ function handleEvent(event) {
   var bossMode;
 
   function responseBossMode() {
-    changeMode(true);
+    changeMode('true');
     const bossText = [
       { type: 'text', text:'Dua petugas jaga Situs Warungboto, Kota Yogyakarta, mendadak sibuk pada medio September 2017. ' },
       { type: 'text', text: 'Pasalnya, mereka dapat info dari Badan Pelestarian Cagar Budaya (BPCB) DIY tentang rencana penggunaan area situs itu untuk sesi pemotretan pre-wedding anak Presiden Jokowi, Kahiyang Ayu (26), dan calon suaminya, Bobby Afif Nasution (26). ' },
@@ -61,7 +61,7 @@ function handleEvent(event) {
 
 
   function responseNoBossMode() {
-    changeMode(false);
+    changeMode('false');
     client.replyMessage(event.replyToken, { type: 'text', text: 'OK' });
   }
 
@@ -86,6 +86,7 @@ function handleEvent(event) {
   }
 
   function responseLoad(message) {
+    console.log(bossMode)
     if(bossMode=='false') {
       const messageKey = message[1];
       
